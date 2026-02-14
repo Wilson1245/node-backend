@@ -15,7 +15,7 @@ const authenticate = (req, res, next) => {
         req.user = decoded; // // 把使用者資訊掛到 req 上，後續路由可以使用
         next();
     } catch(error) {
-        return res.status(401).json({error: 'tokne is invalid or expired'});
+        return res.status(401).json({error: 'token is invalid or expired'});
     }
 }
 

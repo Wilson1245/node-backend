@@ -3,9 +3,11 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const prisma = require('../lib/prisma');
+const validate = require('../middleware/validate');
+const {registerSchema, loginSchema} = require('../validators/authValidator');
 
 // post /auth/register
-router.post('/register', async(req, res, next) => {
+router.post('/register', validate(registerSchema), async(req, res, next) => {
     try {
         const {name, email, password} = req.body;
 
@@ -28,7 +30,7 @@ router.post('/register', async(req, res, next) => {
 })
 
 // post /auth/login
-router.post('/login', async(req, res, next) => {
+router.post('/login', validate(loginSchema),async(req, res, next) => {
     try {
         const {email, password} = req.body;
 
